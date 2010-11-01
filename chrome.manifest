@@ -1,0 +1,2 @@
+content nav chrome/content/
+overlay chrome://komodo/content/komodo.xul chrome://nav/content/overlay.xul

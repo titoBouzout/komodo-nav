@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE overlay PUBLIC "-//MOZILLA//DTD XUL V1.0//EN" "http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<?xml-stylesheet href="chrome://nav/content/overlay.css" type="text/css"?>
+
+<overlay
+ xmlns:html="http://www.w3.org/1999/xhtml"
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+ 
+ <script src="chrome://nav/content/overlay.js" type="application/x-javascript"/>
+ <script src="chrome://nav/content/plugins.js" type="application/x-javascript"/>
+	  
+	  <hbox id="placesToolbar">
+
+		<toolbarbutton
+			insertbefore="placesRootButton"
+			buttonstyle="pictures"
+			type="button"
+			persist="buttonstyle"
+			oncommand="if(event.currentTarget == event.originalTarget)this.firstChild.openPopup(this, 'after_start')"
+			image="chrome://nav/content/icons/icon.png"
+		>
+			<menupopup
+			  id="nav-menupopup"
+			  onpopuphidden="extensions.nav.onPopupHidden(event);" 
+			  onpopupshowing="extensions.nav.onPopupShowing(event);" 
+			  onmouseover="extensions.nav.browserNavigate(event);" 
+			  onmouseout="extensions.nav.browserNavigate(event);" 
+			  onmouseup="extensions.nav.browserClick(event)"
+			  ondblclick="extensions.nav.stopEvent(event);extensions.nav.browserClick(event)"
+			  class="menupopup-iconic"
+			>
+			  <menuseparator locked="true" id="nav-bookmarks" hidden="true"/>
+			  <menuseparator locked="true" id="nav-drives"/>
+			  <menuseparator locked="true"/>
+			  <menuitem locked="true" action="bookmark_active_tab" label="Bookmark Active Tab" image="chrome://nav/content/icons/tab.png" class="menuitem-iconic"/>
+			  <menuseparator locked="true"/>
+			  <menuitem locked="true" action="bookmark_places" label="Bookmark Places" image="chrome://nav/content/icons/places.png" class="menuitem-iconic"/>
+			  <menuitem locked="true" action="bookmark_selected_files" label="Bookmark Selected Places Files" image="chrome://nav/content/icons/places-files.png" class="menuitem-iconic"/>
+			  <menuseparator locked="true"/>
+			  <menuitem locked="true" action="bookmark_folder" label="Bookmark Folder…" image="chrome://nav/content/icons/folders.png" class="menuitem-iconic"/>
+			  <menuitem locked="true" action="bookmark_files" label="Bookmark Files…" image="chrome://nav/content/icons/files.png" class="menuitem-iconic"/>
+			</menupopup>
+		</toolbarbutton>
+
+		<toolbarbutton
+			buttonstyle="pictures"
+			type="button"
+			persist="buttonstyle"
+			command="cmd_places_goUpOneFolder"
+			image="chrome://komodo/skin/images/small-arrow-up.png"
+		/>
+	  </hbox>
+
+	  <window id="komodo_main">
+		
+		<menupopup id="nav-context-menu"
+		  onpopupshowing="extensions.nav.contextPopupShowing(event)"
+		  oncommand="extensions.nav.contextPopupClick(event)"
+		>
+		  	<menuitem label="Open with OS" action="open_os"/>
+		  	<menuitem label="Open with Komodo" action="open_komodo"/>
+			<menuseparator/>
+			<menuitem label="Bookmark" action="bookmark_add"/>
+			<menuitem label="Bookmark and Open" action="bookmark_add_open"/>
+			<menuitem label="Delete Bookmark" action="bookmark_delete"/>
+		</menupopup>
+
+	  </window>
+
+</overlay>

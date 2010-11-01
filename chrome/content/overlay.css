@@ -1,0 +1,165 @@
+
+.nav-d
+{
+  list-style-image: url(chrome://komodo/skin/images/folder-closed.png);
+}
+
+.nav-f
+{
+  list-style-image:url(chrome://nav/content/icons/document-bookmark.png);
+}
+
+  .nav-f[ext="png"], .nav-f[ext="jpg"], .nav-f[ext="gif"], .nav-f[ext="jpeg"], .nav-f[ext="bmp"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/image.png);
+  }
+  .nav-f[ext="psd"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/psd.png);
+  }
+  .nav-f[ext="js"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/js.png);
+  }
+    .nav-f[ext="xpi"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/xpi.png);
+  }
+  .nav-f[ext="xml"], .nav-f[ext="rdf"], .nav-f[ext="dtd"], .nav-f[ext="xul"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/xml.png);
+  }
+  .nav-f[ext="htm"], .nav-f[ext="html"], .nav-f[ext="md"], .nav-f[ext="xhtml"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/html.png);
+  }
+  .nav-f[ext="css"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/css.png);
+  }
+  .nav-f[ext="sql"], .nav-f[ext="sqlite"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/sql.png);
+  }
+  .nav-f[ext="ai"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/ai.png);
+  }
+  .nav-f[ext="cdr"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/cdr.png);
+  }
+  .nav-f[ext="mov"], .nav-f[ext="mpeg"], .nav-f[ext="avi"], .nav-f[ext="mpg"],
+  .nav-f[ext="3gp"], .nav-f[ext="flv"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/film.png);
+  }
+  .nav-f[ext="php"], .nav-f[ext="php3"], .nav-f[ext="php4"], .nav-f[ext="php5"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/php.png);
+  }
+  .nav-f[ext="pdf"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/pdf.png);
+  }
+  .nav-f[ext="as"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/as.png);
+  }
+  .nav-f[ext="fla"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/fla.png);
+  }
+  .nav-f[ext="swf"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/swf.png);
+  }
+  .nav-f[ext="xls"], .nav-f[ext="doc"], .nav-f[ext="rtf"], .nav-f[ext="ppt"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/office.png);
+  }
+  .nav-f[ext="zip"], .nav-f[ext="tar"], .nav-f[ext="rar"], .nav-f[ext="gz"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/compressed.png);
+  }
+  .nav-f[ext="exe"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/exe.png);
+  }
+  .nav-f[ext="ini"],.nav-f[ext="conf"],.nav-f[ext="dat"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/conf.png);
+  }
+  .nav-f[ext="txt"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/txt.png);
+  }
+  .nav-f[ext="sh"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/sh.png);
+  }
+  .nav-f[ext="py"], .nav-f[ext="pl"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/p.png);
+  }
+  .nav-f[ext="rb"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/rb.png);
+  }
+  .nav-f[ext="htaccess"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/htaccess.png);
+  }
+  .nav-f[ext="diff"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/diff.png);
+  }
+  .nav-f[ext="komodotool"], .nav-f[ext="komodoproject"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/komodo16.png);
+  }
+  .nav-f[ext="json"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/json.png);
+  }
+  .nav-f[ext="rss"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/rss.png);
+  }
+    .nav-f[ext="bak"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/bak.png);
+  }
+    .nav-f[ext="tmp"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/tmp.png);
+  }
+      .nav-f[ext="properties"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/properties.png);
+  }
+  .nav-f[ext="fifo"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/fifo.png);
+  }
+  .nav-f[ext="ico"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/ico.png);
+  }
+  .nav-f[ext="jar"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/jar.png);
+  }
+  .nav-f[ext="gitignore"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/gitignore.png);
+  }
+  .nav-f[ext="manifest"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/manifest.png);
+  }
+  .nav-f[ext="log"]
+  {
+	list-style-image:url(chrome://nav/content/icons/ext/log.png);
+  }
+  
