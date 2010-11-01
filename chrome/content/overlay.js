@@ -758,7 +758,7 @@ if(typeof(extensions.nav) == 'undefined')
 	  this.openURL = function(aFilePath, newTab)
 	  {
 		if(this.fileIsFolder(aFilePath))//folders
-		  ko.places.manager.openDirURI(aFilePath);
+		  ko.places.manager.openDirURI(this.fileURIFromPath(aFilePath));
 		else
 		{
 		  if(newTab)
@@ -957,6 +957,23 @@ if(typeof(extensions.nav) == 'undefined')
 		return String(this.ios.newURI(aURI, null, null)
 					.QueryInterface(Components.interfaces.nsIFileURL).file.path);
 	  }
+	  //returns a file path from a file URI
+	  this.fileURIFromPath = function(aPath)
+	  {
+		if(aPath.indexOf('file:') === 0)
+		  return aPath;
+		aPath = this.pathSanitize(aPath);
+		if(!this.ios)
+		  this.ios = Components.classes["@mozilla.org/network/io-service;1"].  
+						  getService(Components.interfaces.nsIIOService);
+						  
+		  var file = Components.classes["@mozilla.org/file/local;1"].  
+						createInstance(Components.interfaces.nsILocalFile);  
+			  file.initWithPath(aPath);
+		  
+		return this.ios.newFileURI(file).spec;
+	  }
+	  
 	  //removes duplicate values from an array
 	  this.arrayUnique = function (anArray)
 	  {
