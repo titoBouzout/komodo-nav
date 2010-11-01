@@ -16,9 +16,9 @@
 		<toolbarbutton
 			insertbefore="placesRootButton"
 			buttonstyle="pictures"
-			type="button"
+			type="menu"
 			persist="buttonstyle"
-			oncommand="if(event.currentTarget == event.originalTarget)this.firstChild.openPopup(this, 'after_start')"
+			orient="horizontal"
 			image="chrome://nav/content/icons/icon.png"
 		>
 			<menupopup

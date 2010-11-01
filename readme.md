@@ -1,7 +1,7 @@
 Experimental folder browsing and bookmarks.
 
 <blockquote>
-From a places toolbarbutton this add-on allows bookmark the active tab and "Places" selected files.
+From a places toolbarbutton this add-on allows bookmark the active tab selected files on  "Places".
 Builds a menu with these bookmarks allowing real-time navigation of Directories.
 
 With simply click the directories will open on "Places" sidebar. On files will open these files in a new tab. There is also context options to the browseable folders ( open with OS, bookmark folder )
@@ -17,16 +17,19 @@ License:<br/>
 GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 
 Todo:<br/>
-http://github.com/titoBouzout/Nav/blob/master/todo.txt
+http://github.com/titoBouzout/Nav/raw/master/todo.txt
 
 Know Bugs:<br/>
 Can't browse servers.
+
+Icons Art:<br/>
+http://p.yusukekamiyamane.com/
 
 Source-Code:<br/>
 http://github.com/titoBouzout/Nav
 
 All versions Changes:<br/>
-http://github.com/titoBouzout/Nav/blob/master/changes.html
+http://github.com/titoBouzout/Nav/raw/master/changes.html
 
 Current Version Changes:
 

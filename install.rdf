@@ -11,7 +11,7 @@
         <em:creator>Roberto Bouzout (tito)</em:creator>
 		<em:iconURL>chrome://nav/content/icons/icon.png</em:iconURL>
 		<em:homepageURL>http://community.activestate.com/xpi/nav</em:homepageURL>
-		<em:updateInfoURL>http://github.com/titoBouzout/Nav/blob/master/changes.html</em:updateInfoURL>
+		<em:updateInfoURL>http://github.com/titoBouzout/Nav/raw/master/changes.html</em:updateInfoURL>
         <em:targetApplication>
             <Description>
                 <!-- Komodo Edit's uuid -->
