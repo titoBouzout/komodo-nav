@@ -295,7 +295,6 @@ if(typeof(extensions.nav) == 'undefined')
 					}
 					if(item.hasAttribute('temporal'))
 						menu.setAttribute('temporal', item.getAttribute('temporal'));
-					
 					try
 					{
 					  item.parentNode.replaceChild(menu, item);
@@ -489,7 +488,11 @@ if(typeof(extensions.nav) == 'undefined')
 		  this.fileWrite(aFileData, '[]');
   
 		var bookmarks = JSON.parse(this.fileRead(aFileData));
-			bookmarks[bookmarks.length] = aPath.replace(/\/$/, '');
+			if(this.subStrCount(aPath, '/') > 1)
+			  bookmarks[bookmarks.length] = aPath.replace(/\/$/, '');
+			else
+			  bookmarks[bookmarks.length] = aPath;
+
 			bookmarks = this.arrayUnique(bookmarks);
 			
 			this.fileWrite(aFileData, JSON.stringify(bookmarks));
@@ -565,7 +568,7 @@ if(typeof(extensions.nav) == 'undefined')
 	  try
 	  {
 		aFolderPath = this.pathSanitize(aFolderPath);
-  
+
 		var aDirectory = Components.classes["@mozilla.org/file/local;1"].  
 							createInstance(Components.interfaces.nsILocalFile); 
 		
