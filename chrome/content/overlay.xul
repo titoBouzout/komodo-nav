@@ -31,12 +31,13 @@
 			  ondblclick="extensions.nav.stopEvent(event);extensions.nav.browserClick(event)"
 			  class="menupopup-iconic"
 			>
+			  <menuitem locked="true" action="bookmark_places" label="Bookmark Places" image="chrome://nav/content/icons/places.png" class="menuitem-iconic"/>
+			  <menuseparator locked="true"/>
 			  <menuseparator locked="true" id="nav-bookmarks" hidden="true"/>
 			  <menuseparator locked="true" id="nav-drives"/>
 			  <menuseparator locked="true"/>
 			  <menuitem locked="true" action="bookmark_active_tab" label="Bookmark Active Tab" image="chrome://nav/content/icons/tab.png" class="menuitem-iconic"/>
 			  <menuseparator locked="true"/>
-			  <menuitem locked="true" action="bookmark_places" label="Bookmark Places" image="chrome://nav/content/icons/places.png" class="menuitem-iconic"/>
 			  <menuitem locked="true" action="bookmark_selected_files" label="Bookmark Selected Places Files" image="chrome://nav/content/icons/places-files.png" class="menuitem-iconic"/>
 			  <menuseparator locked="true"/>
 			  <menuitem locked="true" action="bookmark_folder" label="Bookmark Folder…" image="chrome://nav/content/icons/folders.png" class="menuitem-iconic"/>
