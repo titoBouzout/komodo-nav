@@ -1,3 +1,5 @@
 Things to not forget
 
 Add server browsing
+
+add mouse whell support for switching directories
