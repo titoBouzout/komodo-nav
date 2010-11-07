@@ -50,7 +50,7 @@
 	list-style-image:url(chrome://nav/content/icons/ext/cdr.png);
   }
   .nav-f[ext="mov"], .nav-f[ext="mpeg"], .nav-f[ext="avi"], .nav-f[ext="mpg"],
-  .nav-f[ext="3gp"], .nav-f[ext="flv"]
+  .nav-f[ext="3gp"], .nav-f[ext="flv"], .nav-f[ext="wmv"]
   {
 	list-style-image:url(chrome://nav/content/icons/ext/film.png);
   }
