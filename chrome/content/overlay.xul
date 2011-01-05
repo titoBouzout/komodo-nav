@@ -44,7 +44,16 @@
 			  <menuitem locked="true" action="bookmark_files" label="Bookmark Files…" image="chrome://nav/content/icons/files.png" class="menuitem-iconic"/>
 			</menupopup>
 		</toolbarbutton>
-
+		
+		<toolbarbutton
+			insertbefore="placesRootButton"
+			buttonstyle="pictures"
+			type="button"
+			persist="buttonstyle"
+			orient="horizontal"
+			image="chrome://nav/content/icons/refresh.png"
+			oncommand="gPlacesViewMgr.view.refreshFullTreeView()"
+		/>
 		<toolbarbutton
 			buttonstyle="pictures"
 			type="button"
