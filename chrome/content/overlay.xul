@@ -20,6 +20,7 @@
 			persist="buttonstyle"
 			orient="horizontal"
 			image="chrome://nav/content/icons/icon.png"
+			tooltiptext="Nav!"
 		>
 			<menupopup
 			  id="nav-menupopup"
@@ -53,12 +54,14 @@
 			orient="horizontal"
 			image="chrome://nav/content/icons/refresh.png"
 			oncommand="gPlacesViewMgr.view.refreshFullTreeView()"
+			tooltiptext="Refresh places view"
 		/>
 		<toolbarbutton
 			buttonstyle="pictures"
 			type="button"
 			persist="buttonstyle"
 			command="cmd_places_goUpOneFolder"
+			tooltiptext="Go up one directory"
 			image="chrome://komodo/skin/images/small-arrow-up.png"
 		/>
 	  </hbox>

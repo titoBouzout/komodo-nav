@@ -57,6 +57,7 @@ if(typeof(extensions.nav) == 'undefined')
 			this.fileWrite(aFileData, '[]');
 			
 		  var bookmarks = JSON.parse(this.fileRead(aFileData));
+			  bookmarks = bookmarks.sort();
 			  bookmarks.sort(this.sortLocale).reverse();
 		  
 		  for(var id in bookmarks)
@@ -86,8 +87,10 @@ if(typeof(extensions.nav) == 'undefined')
 		  }
 		  
 		  var anElement = this.getElement('drives');
+		  
 		  if(drives.length > 0)
 		  {
+			drives.sort(this.sortLocale).reverse()
 			anElement.setAttribute('hidden', false);
 			for(var id in drives)
 			  this.appendItem(drives[id], anElement, false);
@@ -494,7 +497,7 @@ if(typeof(extensions.nav) == 'undefined')
 			  bookmarks[bookmarks.length] = aPath;
 
 			bookmarks = this.arrayUnique(bookmarks);
-			
+			bookmarks = bookmarks.sort(this.sortLocale);
 			this.fileWrite(aFileData, JSON.stringify(bookmarks));
 	  }
 	}

@@ -6,7 +6,7 @@
     <Description about="urn:mozilla:install-manifest">
         <em:id>tito@nav</em:id>
         <em:name>Nav</em:name>
-        <em:version>0.101101.0</em:version>
+        <em:version>0.110414.1</em:version>
         <em:description>Navigate and bookmark folders and files</em:description>
         <em:creator>Roberto Bouzout (tito)</em:creator>
 		<em:iconURL>chrome://nav/content/icons/icon.png</em:iconURL>

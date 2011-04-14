@@ -36,6 +36,11 @@ Current Version Changes:
 <ul><!-- root node -->
 
 <li>
+  0.110414.1 - http://community.activestate.com/files/nav_0.xpi
+  <ul>
+	<li>Adds button to "go up one directory"</li>
+	<li>Adds button to refresh places sidebar</li>
+  </ul>
   0.101101.0 - http://community.activestate.com/files/nav.xpi
   <ul>
 	<li>First Release</li>
