@@ -79,15 +79,29 @@
 			insertbefore="menu_refreshStatus3"
 		  />
 	  </menupopup>
-	  
+	   <menupopup id="places-files-popup">
+		<menuitem
+			id="nav-bookmark-selected-files"
+			insertafter="placesContextMenu_showInFinder"
+			label="Bookmark"
+			class="menuitem-iconic"
+			oncommand="extensions.nav.bookmarkSelectedFiles()"
+		/>
+		<menuitem
+			id="nav-open-selected-files-with-os"
+			insertafter="placesContextMenu_showInFinder"
+			label="Execute with OS"
+			class="menuitem-iconic"
+			oncommand="extensions.nav.openSelectedFilesWithOS()"
+		/>
+
+	   </menupopup>
 	  <window id="komodo_main">
 		
 		<menupopup id="nav-context-menu"
 		  onpopupshowing="extensions.nav.contextPopupShowing(event)"
 		  oncommand="extensions.nav.contextPopupClick(event)"
 		>
-		  	<menuitem label="Open with OS" action="open_os"/>
-		  	<menuitem label="Open with Komodo" action="open_komodo"/>
 			<menuseparator/>
 			<menuitem label="Bookmark" action="bookmark_add"/>
 			<menuitem label="Bookmark and Open" action="bookmark_add_open"/>

@@ -414,11 +414,28 @@ if(typeof(extensions.nav) == 'undefined')
 			this.stopEvent(aEvent);
 		}
 	}
-	this.registerPlugin = function(anAction, aFunction)
+	this.openSelectedFilesWithOS = function()
+	{
+	  var paths = this.getSelectedPaths();
+	  for(var id in paths)
+		this.launch(paths[id]);
+	}
+	this.bookmarkSelectedFiles = function()
+	{
+	  var paths = this.getSelectedPaths();
+	  for(var id in paths)
+		this.bookmarkAdd(paths[id]);
+	}
+	this.registerPlugin = function(anAction, aLabel, aFunction)
 	{
 	  if(!this.plugins)
 		this.plugins = [];
 		
+	  var aPlugin = document.createElement('menuitem');
+		  aPlugin.setAttribute('action', anAction);
+		  aPlugin.setAttribute('label', aLabel);
+	  this.getElement('context-menu').insertBefore(aPlugin, this.getElement('context-menu').firstChild);
+	  
 	  this.plugins[anAction] = aFunction;
 	}
 	//hides or show relevant menuitems
@@ -543,6 +560,9 @@ if(typeof(extensions.nav) == 'undefined')
 		  bookmarks = this.arrayUnique(bookmarks);
 		  
 		  this.fileWrite(aFileData, JSON.stringify(bookmarks));
+		
+		this.getElement('menupopup').hidePopup();
+		this.getElement('menupopup').openPopup(this.getBrowserElement('placesRootButton'), 'after_start');
 	}
 	
 	
