@@ -1,7 +1,5 @@
 Experimental folder browsing and bookmarks.. and several tweaks to places toolbar.
 
-<img src="http://dl.dropbox.com/u/9303546/komodo/nav/screenshot.png" style="float:rigth"/>
-
 <blockquote>
 From a places toolbarbutton this add-on allows bookmark the active tab or the selected files on "Places".
 Builds a menu with these bookmarks allowing real-time navigation of directories and files.
@@ -10,15 +8,18 @@ With simply click the directories will open on "Places" sidebar. On files will o
 Each file and folder contains a context menu with options ( open with OS, bookmark folder, Find.. )
 </blockquote><br/>
 
+<img src="http://dl.dropbox.com/u/9303546/komodo/nav/screenshot.png"/>
+
 The context menu is extensible, you can add new functions (menuitems) by calling to :
-<code>
-extensions.nav.registerPlugin('the_unique_name_of_my_action', 'My Action..', function(aPath)
-												{
-												  alert('do something with:'+aPath);
-												  //do something with aPath..
-												}
-							  );
-</code>
+<pre>
+extensions.nav.registerPlugin('the_unique_name_of_my_action', 'My Action..', 
+function(aPath)
+{
+alert('do something with:'+aPath);
+//do something with aPath..
+}
+);
+</pre>
 
 Feature:
 
