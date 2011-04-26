@@ -35,6 +35,31 @@ if(typeof(extensions.nav) == 'undefined')
 			this.__NEW_LINE__ = '\n';
 			this.__DIRECTORY_SEPARATOR__ = '/';
 		}
+		//reorde places toolbar
+		var placesToolbar = this.getBrowserElement('placesToolbar');
+			placesToolbar.insertBefore(this.getBrowserElement('placesOpenDirectory'), placesToolbar.firstChild);
+			placesToolbar.insertBefore(this.getBrowserElement('placesGoUpButton'), placesToolbar.firstChild);
+			placesToolbar.insertBefore(this.getBrowserElement('placesForwardButton'), placesToolbar.firstChild);
+			placesToolbar.insertBefore(this.getBrowserElement('placesBackButton'), placesToolbar.firstChild);
+			//move parent directories menu to go up one directory menu
+			this.getBrowserElement('placesGoUpButton').appendChild(this.getBrowserElement('placesParentDirectoriesMenu'));
+			//move nav menu to rootButton
+			this.getBrowserElement('placesRootButton').appendChild(this.getElement('menupopup'))
+			//fix bug http://bugs.activestate.com/show_bug.cgi?id=87887
+			this.getBrowserElement('placesRootButton').setAttribute('crop', "right");
+			this.getBrowserElement('placesRootButton').setAttribute('flex', "1");
+			this.getBrowserElement('placesRootButton').setAttribute('pack', "start");
+			//remove the spacer as the toolbarbutton rootbutton already is flex.
+			var childNodes = placesToolbar.childNodes;
+			for(var i=0;i<childNodes.length;i++)
+			{
+			  if(childNodes[i].tagName == 'spacer')
+			  {
+				placesToolbar.removeChild(childNodes[i]);
+				break;
+			  }
+			}
+			
 	  }
 	  //every time the popup is opened the menupopup is filled
 	  //every time the popup is closed the popup is emptied
@@ -57,8 +82,8 @@ if(typeof(extensions.nav) == 'undefined')
 			this.fileWrite(aFileData, '[]');
 			
 		  var bookmarks = JSON.parse(this.fileRead(aFileData));
-			  bookmarks = bookmarks.sort();
-			  bookmarks.sort(this.sortLocale).reverse();
+			  bookmarks = bookmarks.sort(this.sortLocale);
+			  bookmarks.reverse();
 		  
 		  for(var id in bookmarks)
 		  {
@@ -177,7 +202,7 @@ if(typeof(extensions.nav) == 'undefined')
 		
 		if(aResult.length < 1 )
 		{
-			if(/\/$/.test(item.getAttribute('value')))
+			if(this.fileIsFolder(item.getAttribute('value')))
 			{
 			  item.setAttribute('label', item.getAttribute('label')+'/');
 			  item.setAttribute('class', 'menuitem-iconic nav-d');
@@ -217,7 +242,7 @@ if(typeof(extensions.nav) == 'undefined')
 					  var add = this.create("menuitem");
 						  add.setAttribute("label", aCategoryLastChildName);
 						  add.setAttribute("value", aCategories[id]);
-						  if(/\/$/.test(aCategories[id]))
+						  if(this.fileIsFolder(aCategories[id]))
 							add.setAttribute('class', 'menuitem-iconic nav-d');
 						  else
 						  {
@@ -231,7 +256,7 @@ if(typeof(extensions.nav) == 'undefined')
 				menu.appendChild(menupopup);
 			
 			//parents menu
-			if(this.subStrCount(item.getAttribute('value'), '/') > 0)
+			if(this.subStrCount(item.getAttribute('value'), this.__DIRECTORY_SEPARATOR__) > 0)
 			{
 				var menuParents = this.create('menu');
 					menuParents.setAttribute('label', 'Parents');
@@ -244,19 +269,21 @@ if(typeof(extensions.nav) == 'undefined')
 					menupopupParents.setAttribute('class', 'menupopup-iconic');
 					//menupopupParents.setAttribute('ignorekeys', true);
 
-				var aNodes = item.getAttribute('value').split('/');
+				var aNodes = item.getAttribute('value').split(this.__DIRECTORY_SEPARATOR__);
 				var path = '';
 				for(var id in aNodes)
 				{
 					if(id==aNodes.length-1)
 						break;
-					path += aNodes[id]+'/';
+					path += aNodes[id];
 					var add = this.create('menuitem');
 						add.setAttribute('value', path);
-						add.setAttribute('label', path);
+						add.setAttribute('label', path.replace(/\\/g, '/'));
 						add.setAttribute('class', 'nav-d menuitem-iconic');
 						add.setAttribute('crop', 'center');
 						menupopupParents.appendChild(add);
+					
+					path+=this.__DIRECTORY_SEPARATOR__;
 				}
 				menuParents.appendChild(menupopupParents);
 				menupopup.appendChild(this.create('menuseparator'));
@@ -330,7 +357,7 @@ if(typeof(extensions.nav) == 'undefined')
 			  var action = item.getAttribute('action');
 			  
 			  if(action == 'bookmark_active_tab')
-				this.bookmarkAdd(this.documentFocusedGetLocation());
+				this.bookmarkAdd(this.filePathFromFileURI(this.documentFocusedGetLocation()));
 			  else if(action == 'bookmark_selected_files')
 			  {
 				var paths = this.getSelectedPaths();
@@ -341,7 +368,7 @@ if(typeof(extensions.nav) == 'undefined')
 			  }
 			  else if(action == 'bookmark_places')
 			  {
-				this.bookmarkAdd(this.getPlacesPath());
+				this.bookmarkAdd(this.filePathFromFileURI(this.getPlacesPath()));
 			  }
 			  else if(action == 'bookmark_folder')
 			  {
@@ -349,14 +376,14 @@ if(typeof(extensions.nav) == 'undefined')
 				if(!d){}
 				else
 				{
-				  this.bookmarkAdd(d);
+				  this.bookmarkAdd(this.filePathFromFileURI(d));
 				}
 			  }
 			  else if(action == 'bookmark_files')
 			  {
 				var d = ko.filepicker.browseForFiles(null, "Pick the files to bookmark")
 				for(var id in d)
-				  this.bookmarkAdd(d[id]);
+				  this.bookmarkAdd(this.filePathFromFileURI(d[id]));
 			  }
 			}
 		}
@@ -491,9 +518,6 @@ if(typeof(extensions.nav) == 'undefined')
 		  this.fileWrite(aFileData, '[]');
   
 		var bookmarks = JSON.parse(this.fileRead(aFileData));
-			if(this.subStrCount(aPath, '/') > 1)
-			  bookmarks[bookmarks.length] = aPath.replace(/\/$/, '');
-			else
 			  bookmarks[bookmarks.length] = aPath;
 
 			bookmarks = this.arrayUnique(bookmarks);
@@ -510,7 +534,7 @@ if(typeof(extensions.nav) == 'undefined')
 	  var bookmarks = JSON.parse(this.fileRead(aFileData));
 		  for(var id in bookmarks)
 		  {
-			if(aPath.replace(/\/$/, '') == bookmarks[id].replace(/\/$/, ''))
+			if(aPath == bookmarks[id])
 			{
 			  delete bookmarks[id];
 			  break;
@@ -530,7 +554,6 @@ if(typeof(extensions.nav) == 'undefined')
 	//reveals a folder on File Manager
 	this.folderOpen = function(aFilePath)
 	{
-	  aFilePath = this.pathSanitize(aFilePath);
 		var aFile = Components.classes["@mozilla.org/file/local;1"]
 					  .createInstance(Components.interfaces.nsILocalFile);	
 			aFile.initWithPath(aFilePath);
@@ -570,8 +593,6 @@ if(typeof(extensions.nav) == 'undefined')
 	{
 	  try
 	  {
-		aFolderPath = this.pathSanitize(aFolderPath);
-
 		var aDirectory = Components.classes["@mozilla.org/file/local;1"].  
 							createInstance(Components.interfaces.nsILocalFile); 
 		
@@ -584,9 +605,9 @@ if(typeof(extensions.nav) == 'undefined')
 		  {
 			  entry = entries.getNext();
 					  entry.QueryInterface(Components.interfaces.nsIFile);
-			  var path = entry.path.replace(/\\/g, '/');//windowses
+			  var path = entry.path;//windowses
 			  if(entry.isDirectory())
-				folderContentD[folderContentD.length] = path+'/';
+				folderContentD[folderContentD.length] = path;
 			  else
 				folderContentF[folderContentF.length] = path;
 		  }
@@ -614,24 +635,18 @@ if(typeof(extensions.nav) == 'undefined')
 		var extensionDirectory = Components.classes["@mozilla.org/file/directory_service;1"]  
 			  .getService(Components.interfaces.nsIProperties)  
 			  .get("ProfD", Components.interfaces.nsIFile);
-			  return extensionDirectory.path+'/';
-	}
- 	//return a good file path for this system, also fix when a profile changes the OS
-	this.pathSanitize= function(aFilePath)
-	{
-		//aFilePath = aFilePath.split('\\').join('/').split('/').join(this.__DIRECTORY_SEPARATOR__);
-		aFilePath = aFilePath.split('\\').join('/').split('/').join(this.__DIRECTORY_SEPARATOR__);
-		//myExt.dump(aFilePath);
-		return aFilePath;
+			  return extensionDirectory.path+this.__DIRECTORY_SEPARATOR__;
 	}
 	//returns the category name for the last child of a category
 	this.categoryGetLastChildName = function(aCategory)
 	{
+	  aCategory = aCategory.split(this.__DIRECTORY_SEPARATOR__).join('/');
 		return aCategory.replace(/\/+$/, '').replace(/.*\/([^\/]+)$/, "$1");
 	}
 	  this.categoryAbbreviate = function(aURL)
 	  {
-		if(this.subStrCount(aURL, '/') > 4)
+		aURL = aURL.split(this.__DIRECTORY_SEPARATOR__).join('/');
+		if(this.subStrCount(aURL, '/') > 5)
 		  return aURL.replace(/\/+$/, '').replace(/.*\/([^\/]+\/[^\/]+\/[^\/]+\/[^\/]+)$/, "…$1");
 		else
 		  return aURL;
@@ -735,20 +750,20 @@ if(typeof(extensions.nav) == 'undefined')
 			else
 			{
 			  selected = [];
-			  selected[0] = this.getPlacesPath();
+			  selected[0] =  this.filePathFromFileURI(this.getPlacesPath());
 			}
 		}
 		else
 		{
 		  var selected = [];
-			  selected[0] = this.documentFocusedGetLocation();	
+			  selected[0] =  this.filePathFromFileURI(this.documentFocusedGetLocation());	
 		}
 		return selected;
 	  }
 	  this.getPlacesPath = function()
 	  {
 		  if(ko.places && ko.places.manager && ko.places.manager.currentPlace &&  ko.places.manager.currentPlace != '')
-			return this.filePathFromFileURI(String(ko.places.manager.currentPlace));
+			return String(ko.places.manager.currentPlace);
 		  else
 			return '';
 	  }
@@ -764,13 +779,35 @@ if(typeof(extensions.nav) == 'undefined')
 	  this.openURL = function(aFilePath, newTab)
 	  {
 		if(this.fileIsFolder(aFilePath))//folders
-		  ko.places.manager.openDirURI(this.fileURIFromPath(aFilePath));
+		{
+		  ko.places.manager.openDirURI(this.decodeUTF8(this.fileURIFromPath(aFilePath)));
+		}
 		else
 		{
 		  if(newTab)
 			ko.open.multipleURIs([aFilePath]);
 		}
 	  }
+	this.decodeUTF8 = function(aString)
+	{
+		if(aString.indexOf('%') == -1)
+			return aString;
+		try
+		{
+			return decodeURIComponent(aString);
+		}
+		catch(e)
+		{
+			try
+			{
+				return decodeURI(aString);
+			}
+			catch(e)
+			{
+				return aString;
+			}
+		}
+	};
 	  this.documentFocusedGetLocation = function()
 	  {
 		return this.documentGetLocation(this.documentGetFocused());
@@ -845,9 +882,6 @@ if(typeof(extensions.nav) == 'undefined')
 	  {
 		try
 		{
-		  aFilePath = this.pathSanitize(aFilePath);
-		
-
 		  var aFile = Components.classes["@mozilla.org/file/local;1"]
 						  .createInstance(Components.interfaces.nsILocalFile);
 			  aFile.initWithPath(aFilePath);
@@ -856,7 +890,8 @@ if(typeof(extensions.nav) == 'undefined')
 				  return true;
 			  else
 				  return false;
-		}catch(e)
+		}
+		catch(e)
 		{
 		  return false;
 		}
@@ -865,9 +900,6 @@ if(typeof(extensions.nav) == 'undefined')
 	  this.fileIsFolder = function(aFilePath)
 	  {
 		try{
-		  aFilePath = this.pathSanitize(aFilePath);
-		
-
 		  var aFile = Components.classes["@mozilla.org/file/local;1"]
 						  .createInstance(Components.interfaces.nsILocalFile);
 			  aFile.initWithPath(aFilePath);
@@ -884,8 +916,6 @@ if(typeof(extensions.nav) == 'undefined')
 	  //returns the content of a file
 	  this.fileRead = function(aFilePath)
 	  {
-		  aFilePath = this.pathSanitize(aFilePath);
-		
 		  var aFile = Components.classes["@mozilla.org/file/local;1"].createInstance(Components.interfaces.nsILocalFile);	
 			  aFile.initWithPath(aFilePath);
   
@@ -908,8 +938,6 @@ if(typeof(extensions.nav) == 'undefined')
 	  //writes content to a file
 	  this.fileWrite = function(aFilePath, aData)
 	  {
-		  aFilePath = this.pathSanitize(aFilePath);
-
 		  try
 		  {
 		  //write the content to the file
@@ -941,8 +969,6 @@ if(typeof(extensions.nav) == 'undefined')
 	  //returns the dirname of a file
 	  this.fileDirname = function(aFilePath)
 	  {
-		  aFilePath = this.pathSanitize(aFilePath);
-
 		  var aDestination = Components.classes["@mozilla.org/file/local;1"]
 						  .createInstance(Components.interfaces.nsILocalFile);
 			  aDestination.initWithPath(aFilePath);
@@ -953,22 +979,22 @@ if(typeof(extensions.nav) == 'undefined')
 	  //returns a file path from a file URI
 	  this.filePathFromFileURI = function(aURI)
 	  {
-		if(aURI.indexOf('file:') !== 0)
-		  return aURI;
-		
+		try{
 		if(!this.ios)
 		  this.ios = Components.classes["@mozilla.org/network/io-service;1"].  
 						  getService(Components.interfaces.nsIIOService);
   
 		return String(this.ios.newURI(aURI, null, null)
 					.QueryInterface(Components.interfaces.nsIFileURL).file.path);
+		}
+		catch(e)
+		{
+		  return aURI;
+		}
 	  }
 	  //returns a file path from a file URI
 	  this.fileURIFromPath = function(aPath)
 	  {
-		if(aPath.indexOf('file:') === 0)
-		  return aPath;
-		aPath = this.pathSanitize(aPath);
 		if(!this.ios)
 		  this.ios = Components.classes["@mozilla.org/network/io-service;1"].  
 						  getService(Components.interfaces.nsIIOService);
@@ -977,7 +1003,7 @@ if(typeof(extensions.nav) == 'undefined')
 						createInstance(Components.interfaces.nsILocalFile);  
 			  file.initWithPath(aPath);
 		  
-		return this.ios.newFileURI(file).spec;
+		return this.ios.newFileURI(file).asciiSpec;
 	  }
 	  
 	  //removes duplicate values from an array

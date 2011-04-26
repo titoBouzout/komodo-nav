@@ -12,17 +12,89 @@
  <script src="chrome://nav/content/plugins.js" type="application/x-javascript"/>
 	  
 	  <hbox id="placesToolbar">
-
+		
 		<toolbarbutton
-			insertbefore="placesRootButton"
+			id="placesRefreshButton"
+			insertbefore="placeView_tools"
 			buttonstyle="pictures"
-			type="menu"
+			type="button"
 			persist="buttonstyle"
 			orient="horizontal"
-			image="chrome://nav/content/icons/icon.png"
-			tooltiptext="Nav!"
+			image="chrome://nav/content/icons/refresh.png"
+			oncommand="gPlacesViewMgr.view.refreshFullTreeView()"
+			tooltiptext="Refresh places view"
+		/>
+		<toolbarbutton
+			id="placesGoUpButton"
+			buttonstyle="pictures"
+			type="menu-button"
+			persist="buttonstyle"
+			command="cmd_places_goUpOneFolder"
+			tooltiptext="Go up one directory"
+			image="chrome://komodo/skin/images/small-arrow-up.png"
+		/>
+		<toolbarbutton
+			id="placesOpenDirectory"
+			buttonstyle="pictures"
+			type="button"
+			persist="buttonstyle"
+			tooltiptext="Open Directory..."
+			class="open-file-icon"
+			observes="cmd_openDirectory"
+			desc="Places: Load Place..."
+			oncommand="ko.commands.doCommandAsync('cmd_openDirectory', event)"
+			key="key_cmd_openDirectory"
+		/>
+	  </hbox> 
+
+	  <!-- tab context menu -->
+  
+	  <menupopup id="tabContextMenu">
+		  <menuitem
+			id="menu_saveAll2"
+			insertafter="menu_save2"
+			tooltiptext="Save All Files"
+			persist="buttonstyle"
+			buttonstyle="pictures"
+			observes="cmd_saveAll"
+			class="save-all-buffers-icon"
+			label="Save All"
+			desc="General: Save All"
+			oncommand="ko.commands.doCommandAsync('cmd_saveAll', event)"
+			key="key_cmd_saveAll"
+		  />
+		  <menuitem
+			insertbefore="menu_refreshStatus3"
+			tooltiptext="Open File"
+			persist="buttonstyle"
+			buttonstyle="pictures"
+			class="open-file-icon"
+			observes="cmd_open"
+			label="Open File"
+			desc="General: Open File dialog..."
+			oncommand="ko.commands.doCommand('cmd_open')"
+			key="key_cmd_open"
+		  />
+		  <menuseparator
+			insertbefore="menu_refreshStatus3"
+		  />
+	  </menupopup>
+	  
+	  <window id="komodo_main">
+		
+		<menupopup id="nav-context-menu"
+		  onpopupshowing="extensions.nav.contextPopupShowing(event)"
+		  oncommand="extensions.nav.contextPopupClick(event)"
 		>
-			<menupopup
+		  	<menuitem label="Open with OS" action="open_os"/>
+		  	<menuitem label="Open with Komodo" action="open_komodo"/>
+			<menuseparator/>
+			<menuitem label="Bookmark" action="bookmark_add"/>
+			<menuitem label="Bookmark and Open" action="bookmark_add_open"/>
+			<menuitem label="Delete Bookmark" action="bookmark_delete"/>
+		</menupopup>
+		
+		<menupopup
 			  id="nav-menupopup"
 			  onpopuphidden="extensions.nav.onPopupHidden(event);" 
 			  onpopupshowing="extensions.nav.onPopupShowing(event);" 
@@ -44,42 +116,6 @@
 			  <menuitem locked="true" action="bookmark_folder" label="Bookmark Folder…" image="chrome://nav/content/icons/folders.png" class="menuitem-iconic"/>
 			  <menuitem locked="true" action="bookmark_files" label="Bookmark Files…" image="chrome://nav/content/icons/files.png" class="menuitem-iconic"/>
 			</menupopup>
-		</toolbarbutton>
-		
-		<toolbarbutton
-			insertbefore="placesRootButton"
-			buttonstyle="pictures"
-			type="button"
-			persist="buttonstyle"
-			orient="horizontal"
-			image="chrome://nav/content/icons/refresh.png"
-			oncommand="gPlacesViewMgr.view.refreshFullTreeView()"
-			tooltiptext="Refresh places view"
-		/>
-		<toolbarbutton
-			buttonstyle="pictures"
-			type="button"
-			persist="buttonstyle"
-			command="cmd_places_goUpOneFolder"
-			tooltiptext="Go up one directory"
-			image="chrome://komodo/skin/images/small-arrow-up.png"
-		/>
-	  </hbox>
-
-	  <window id="komodo_main">
-		
-		<menupopup id="nav-context-menu"
-		  onpopupshowing="extensions.nav.contextPopupShowing(event)"
-		  oncommand="extensions.nav.contextPopupClick(event)"
-		>
-		  	<menuitem label="Open with OS" action="open_os"/>
-		  	<menuitem label="Open with Komodo" action="open_komodo"/>
-			<menuseparator/>
-			<menuitem label="Bookmark" action="bookmark_add"/>
-			<menuitem label="Bookmark and Open" action="bookmark_add_open"/>
-			<menuitem label="Delete Bookmark" action="bookmark_delete"/>
-		</menupopup>
-
 	  </window>
 
 </overlay>

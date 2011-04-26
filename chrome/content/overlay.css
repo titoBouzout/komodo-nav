@@ -1,4 +1,21 @@
 
+#placesRootButton
+{
+  list-style-image: url(chrome://nav/content/icons/icon.png) !important;
+  
+  -moz-box-align: start !important;
+}
+#placesRootButton > label
+{
+  text-align:left !important;
+}
+#placesRootButton > dropmarker
+{
+  display:none !important;
+}
+
+
+
 .nav-d
 {
   list-style-image: url(chrome://komodo/skin/images/folder-closed.png);
