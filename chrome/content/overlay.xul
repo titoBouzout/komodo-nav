@@ -31,7 +31,7 @@
 			persist="buttonstyle"
 			command="cmd_places_goUpOneFolder"
 			tooltiptext="Go up one directory"
-			image="chrome://komodo/skin/images/small-arrow-up.png"
+			image="chrome://nav/content/icons/go-up.png"
 		/>
 		<toolbarbutton
 			id="placesOpenDirectory"
