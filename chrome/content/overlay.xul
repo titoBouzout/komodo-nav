@@ -7,46 +7,46 @@
  xmlns:html="http://www.w3.org/1999/xhtml"
  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
  xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
- 
- <script src="chrome://nav/content/overlay.js" type="application/x-javascript"/>
- <script src="chrome://nav/content/plugins.js" type="application/x-javascript"/>
+
+	<script src="chrome://nav/content/overlay.js" type="application/x-javascript"/>
+	<script src="chrome://nav/content/plugins.js" type="application/x-javascript"/>
 	  
 	<!-- places toolbar -->
 	
 	  <hbox id="placesToolbar">
 		
-		<toolbarbutton
-			id="placesRefreshButton"
-			insertbefore="placeView_tools"
-			buttonstyle="pictures"
-			type="button"
-			persist="buttonstyle"
-			orient="horizontal"
-			image="chrome://nav/content/icons/refresh.png"
-			oncommand="gPlacesViewMgr.view.refreshFullTreeView()"
-			tooltiptext="Refresh places view"
-		/>
-		<toolbarbutton
-			id="placesGoUpButton"
-			buttonstyle="pictures"
-			type="menu-button"
-			persist="buttonstyle"
-			command="cmd_places_goUpOneFolder"
-			tooltiptext="Go up one directory"
-			image="chrome://nav/content/icons/go-up.png"
-		/>
-		<toolbarbutton
-			id="placesOpenDirectory"
-			buttonstyle="pictures"
-			type="button"
-			persist="buttonstyle"
-			tooltiptext="Open Directory..."
-			class="open-file-icon"
-			observes="cmd_openDirectory"
-			desc="Places: Load Place..."
-			oncommand="ko.commands.doCommandAsync('cmd_openDirectory', event)"
-			key="key_cmd_openDirectory"
-		/>
+			<toolbarbutton
+				id="placesRefreshButton"
+				insertbefore="placeView_tools"
+				buttonstyle="pictures"
+				type="button"
+				persist="buttonstyle"
+				orient="horizontal"
+				image="chrome://nav/content/icons/refresh.png"
+				oncommand="gPlacesViewMgr.view.refreshFullTreeView()"
+				tooltiptext="Refresh places view"
+			/>
+			<toolbarbutton
+				id="placesGoUpButton"
+				buttonstyle="pictures"
+				type="menu-button"
+				persist="buttonstyle"
+				command="cmd_places_goUpOneFolder"
+				tooltiptext="Go up one directory"
+				image="chrome://nav/content/icons/go-up.png"
+			/>
+			<toolbarbutton
+				id="placesOpenDirectory"
+				buttonstyle="pictures"
+				type="button"
+				persist="buttonstyle"
+				tooltiptext="Open Directory..."
+				class="open-file-icon"
+				observes="cmd_openDirectory"
+				desc="Places: Load Place..."
+				oncommand="ko.commands.doCommandAsync('cmd_openDirectory', event)"
+				key="key_cmd_openDirectory"
+			/>
 	  </hbox> 
 
 	  <!-- tab context menu -->
@@ -82,7 +82,12 @@
 		  />
 	  </menupopup>
 	  
-	<!-- places files popup -->
+
+	   
+	  <popupset id="places-panel-popupset">
+		
+
+			<!-- places files popup -->
 	
 	   <menupopup id="places-files-popup">
 		<menuitem
@@ -100,10 +105,8 @@
 			oncommand="extensions.nav.openSelectedFilesWithOS()"
 		/>
 	  </menupopup>
+
 	  
-	   
-	  <window id="komodo_main">
-		
 	  <!-- nav items context menu -->
 	  
 		<menupopup id="nav-context-menu"
@@ -142,6 +145,6 @@
 			</menupopup>
 		
 		
-	  </window>
+	  </popupset>
 
 </overlay>

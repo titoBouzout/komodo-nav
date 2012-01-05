@@ -6,25 +6,26 @@
     <Description about="urn:mozilla:install-manifest">
         <em:id>tito@nav</em:id>
         <em:name>Nav</em:name>
-        <em:version>0.110426.2</em:version>
+        <em:version>0.120105.3</em:version>
         <em:description>Navigate and bookmark folders and files</em:description>
         <em:creator>Roberto Bouzout (tito)</em:creator>
 		<em:iconURL>chrome://nav/content/icons/icon.png</em:iconURL>
-		<em:homepageURL>http://community.activestate.com/xpi/nav</em:homepageURL>
+		<em:homepageURL>https://github.com/titoBouzout/komodo-nav</em:homepageURL>
+
         <em:targetApplication>
             <Description>
-                <!-- Komodo Edit's uuid -->
                 <em:id>{b1042fb5-9e9c-11db-b107-000d935d3368}</em:id>
-                <em:minVersion>6.0</em:minVersion>
-                <em:maxVersion>7.*</em:maxVersion>
+                <em:minVersion>6.9</em:minVersion>
+                <em:maxVersion>999.*</em:maxVersion>
             </Description>
         </em:targetApplication>
+
 		<!-- Komodo IDE -->
         <em:targetApplication>
             <Description>
                 <em:id>{36E66FA0-F259-11D9-850E-000D935D3368}</em:id>
-                <em:minVersion>6.0</em:minVersion>
-                <em:maxVersion>7.*</em:maxVersion>
+                <em:minVersion>6.9</em:minVersion>
+                <em:maxVersion>999.*</em:maxVersion>
             </Description>
         </em:targetApplication>
 		

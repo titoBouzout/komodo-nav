@@ -1,2 +1,2 @@
 content nav chrome/content/
-overlay chrome://komodo/content/komodo.xul chrome://nav/content/overlay.xul
+overlay chrome://places/content/places_panel.xul chrome://nav/content/overlay.xul
